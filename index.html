@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Street Food Pro | Sabor Real</title>
+    <title>Street Food Pro | El Sabor que Manda</title>
     <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
@@ -14,342 +14,278 @@
             --primary-glow: rgba(255, 77, 0, 0.4);
             --bg: #0a0a0a;
             --card-bg: rgba(255, 255, 255, 0.05);
-            --glass: rgba(20, 20, 20, 0.7);
+            --glass: rgba(20, 20, 20, 0.85);
             --text: #ffffff;
             --radius: 25px;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', sans-serif;
-        }
-
-        body {
-            background-color: var(--bg);
-            color: var(--text);
-            overflow-x: hidden;
-            line-height: 1.6;
-        }
-
-        h1, h2, h3 {
-            font-family: 'Bungee', sans-serif;
-            text-transform: uppercase;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
+        body { background-color: var(--bg); color: var(--text); overflow-x: hidden; line-height: 1.6; }
+        h1, h2, h3 { font-family: 'Bungee', sans-serif; text-transform: uppercase; }
 
         /* --- NAVBAR --- */
         .navbar {
-            position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 90%;
-            max-width: 500px;
-            background: var(--glass);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255,255,255,0.1);
-            padding: 12px 25px;
-            border-radius: 50px;
-            z-index: 1000;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
+            width: 90%; max-width: 600px; background: var(--glass); backdrop-filter: blur(15px);
+            border: 1px solid rgba(255,255,255,0.1); padding: 12px 25px; border-radius: 50px;
+            z-index: 1000; display: flex; justify-content: space-between; align-items: center;
         }
-
-        .logo {
-            font-family: 'Bungee';
-            font-size: 1.2rem;
-            color: var(--primary);
-        }
+        .logo { font-size: 1.2rem; color: var(--primary); }
+        .cart-counter { background: var(--primary); color: white; padding: 2px 8px; border-radius: 10px; font-size: 0.8rem; font-weight: bold; }
 
         /* --- HERO --- */
         .hero {
-            height: 90vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
-                        url('https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&q=80&w=1920');
-            background-size: cover;
-            background-position: center;
-            padding: 20px;
+            height: 80vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&q=80&w=1920');
+            background-size: cover; background-position: center; padding: 20px;
         }
+        .hero h1 { font-size: 3.5rem; text-shadow: 0 0 20px var(--primary-glow); margin-bottom: 10px; }
 
-        .hero h1 {
-            font-size: 3rem;
-            margin-bottom: 15px;
-            line-height: 1;
-            text-shadow: 0 0 20px var(--primary-glow);
-        }
+        /* --- GALERÍA INSTAGRAMER --- */
+        .gallery-title { text-align: center; padding-top: 50px; color: var(--primary); }
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 10px; padding: 20px; max-width: 1100px; margin: 0 auto; }
+        .gallery-item { height: 180px; border-radius: 15px; overflow: hidden; position: relative; }
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; }
+        .gallery-overlay { position: absolute; inset: 0; background: rgba(255, 77, 0, 0.6); display: flex; align-items: center; justify-content: center; opacity: 0; transition: 0.3s; font-weight: bold; }
+        .gallery-item:hover .gallery-overlay { opacity: 1; }
 
-        .hero p {
-            font-size: 1.1rem;
-            margin-bottom: 30px;
-            max-width: 600px;
-            opacity: 0.9;
-        }
+        /* --- MENÚ SLIDERS --- */
+        .section-title { padding: 40px 20px 10px; font-size: 1.8rem; text-align: center; }
+        .slider-container { display: flex; overflow-x: auto; gap: 20px; padding: 20px; scroll-snap-type: x mandatory; scrollbar-width: none; }
+        .slider-container::-webkit-scrollbar { display: none; }
+        .card { flex: 0 0 280px; background: var(--card-bg); border-radius: var(--radius); padding: 15px; border: 1px solid rgba(255,255,255,0.05); transition: 0.3s; position: relative; }
+        .card img { width: 100%; height: 180px; object-fit: cover; border-radius: 15px; margin-bottom: 15px; }
+        .price-tag { color: var(--primary); font-weight: bold; font-size: 1.4rem; display: block; margin: 10px 0; }
+        
+        /* --- ORDENAR --- */
+        .order-section { background: white; color: var(--dark); padding: 80px 20px; border-radius: 50px 50px 0 0; margin-top: 50px; color: #000; }
+        .form-container { max-width: 600px; margin: 0 auto; }
+        input, select, textarea { width: 100%; padding: 15px; border-radius: 12px; border: 1px solid #ddd; margin-bottom: 15px; font-size: 1rem; }
+        .btn-add { background: var(--primary); color: white; border: none; padding: 12px; border-radius: 12px; width: 100%; cursor: pointer; font-weight: bold; }
+        
+        /* --- TICKET & ADMIN --- */
+        #ticket { display: none; background: #fff; border: 2px dashed var(--primary); padding: 30px; border-radius: 20px; margin-top: 20px; }
+        .admin-area { background: #111; padding: 50px 20px; }
+        .admin-table { width: 100%; max-width: 900px; margin: 0 auto; border-collapse: collapse; background: #1a1a1a; color: white; font-size: 0.8rem; }
+        .admin-table th, .admin-table td { padding: 15px; border: 1px solid #333; text-align: left; }
+        .admin-table th { background: var(--primary); }
 
-        .cta-button {
-            background: var(--primary);
-            color: white;
-            padding: 18px 35px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: bold;
-            box-shadow: 0 10px 30px var(--primary-glow);
-            position: relative;
-            overflow: hidden;
-            transition: transform 0.3s;
-        }
-
-        .cta-button:active { transform: scale(0.95); }
-
-        .cta-button::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
-            transform: rotate(45deg);
-            animation: shine 3s infinite;
-        }
-
-        @keyframes shine {
-            0% { left: -100%; }
-            100% { left: 100%; }
-        }
-
-        /* --- CATALOG SLIDERS (Mobile First) --- */
-        .section-title {
-            padding: 40px 20px 10px;
-            font-size: 1.5rem;
-        }
-
-        .slider-container {
-            display: flex;
-            overflow-x: auto;
-            gap: 20px;
-            padding: 20px;
-            scroll-snap-type: x mandatory;
-            scrollbar-width: none; /* Firefox */
-        }
-
-        .slider-container::-webkit-scrollbar { display: none; } /* Chrome/Safari */
-
-        .card {
-            flex: 0 0 280px;
-            background: var(--card-bg);
-            border-radius: var(--radius);
-            padding: 15px;
-            scroll-snap-align: center;
-            border: 1px solid rgba(255,255,255,0.05);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-            transition: 0.3s;
-        }
-
-        .card img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-radius: 20px;
-            margin-bottom: 15px;
-        }
-
-        .price-tag {
-            color: var(--primary);
-            font-weight: bold;
-            font-size: 1.4rem;
-            display: block;
-            margin: 10px 0;
-        }
-
-        .combo-badge {
-            background: rgba(255, 255, 255, 0.1);
-            font-size: 0.7rem;
-            padding: 4px 10px;
-            border-radius: 10px;
-            color: #ccc;
-        }
-
-        .order-btn {
-            width: 100%;
-            background: rgba(255,255,255,0.1);
-            color: white;
-            border: none;
-            padding: 12px;
-            border-radius: 15px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-
-        .order-btn:hover { background: var(--primary); }
-
-        /* --- STEPPER --- */
-        .stepper {
-            padding: 50px 20px;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            text-align: center;
-            gap: 10px;
-        }
-
-        .step i {
-            color: var(--primary);
-            margin-bottom: 10px;
-        }
-
-        .step p { font-size: 0.8rem; font-weight: bold; }
-
-        /* --- WHATSAPP FLOATING --- */
-        .wa-float {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background: #25d366;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 0 10px 25px rgba(37, 211, 102, 0.5);
-            z-index: 1000;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
-            70% { transform: scale(1.1); box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
-            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
-        }
-
-        footer {
-            padding: 50px 20px;
-            background: #000;
-            text-align: center;
-            opacity: 0.7;
-            font-size: 0.9rem;
-        }
-
-        /* Desktop Adjustments */
-        @media (min-width: 768px) {
-            .slider-container {
-                justify-content: center;
-                flex-wrap: wrap;
-            }
-            .hero h1 { font-size: 5rem; }
-        }
+        .cta-btn { background: var(--primary); color: white; padding: 18px; border-radius: 50px; border: none; cursor: pointer; width: 100%; font-weight: 700; text-transform: uppercase; margin-top: 10px; }
+        .ws-btn { background: #25d366 !important; text-decoration: none; display: flex; justify-content: center; align-items: center; gap: 10px; }
     </style>
 </head>
 <body>
 
     <nav class="navbar">
-        <div class="logo">STREET FOOD</div>
-        <i data-lucide="menu"></i>
+        <div class="logo">STREET FOOD PRO</div>
+        <div style="display:flex; align-items:center; gap:10px;">
+            <i data-lucide="shopping-cart"></i>
+            <span class="cart-counter" id="cartCount">0</span>
+        </div>
     </nav>
 
     <section class="hero">
-        <h1 data-aos="fade-up">EL SABOR QUE <br>MANDA</h1>
-        <p data-aos="fade-up" data-aos-delay="200">Hamburguesas monstruosas, tacos de verdad y alitas que queman. Todo a un WhatsApp de distancia.</p>
-        <a href="#menu" class="cta-button" data-aos="zoom-in" data-aos-delay="400">VER EL MENÚ</a>
+        <h1 data-aos="zoom-out">EL SABOR<br>QUE MANDA</h1>
+        <p>Auténtica comida callejera con calidad de restaurante. <br>Arma tu orden y recibe en casa.</p>
+        <a href="#menu" class="cta-btn" style="max-width: 250px; text-decoration:none; display:block;">ORDENAR AHORA</a>
     </section>
 
-    <div class="stepper" data-aos="fade-in">
-        <div class="step">
-            <i data-lucide="shopping-cart"></i>
-            <p>1. ELIGES</p>
-        </div>
-        <div class="step">
-            <i data-lucide="message-circle"></i>
-            <p>2. CONFIRMAS</p>
-        </div>
-        <div class="step">
-            <i data-lucide="truck"></i>
-            <p>3. RECIBES</p>
-        </div>
+    <h3 class="gallery-title">#LoMasVendido</h3>
+    <div class="gallery-grid">
+        <div class="gallery-item"><img src="https://images.unsplash.com/photo-1571091718767-18b5b1457add?q=80&w=400"><div class="gallery-overlay">TOP 1 BURGER</div></div>
+        <div class="gallery-item"><img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?q=80&w=400"><div class="gallery-overlay">PIZZA ARTESANAL</div></div>
+        <div class="gallery-item"><img src="https://images.unsplash.com/photo-1619174470144-0312342e1a1b?q=80&w=400"><div class="gallery-overlay">TACOS REALES</div></div>
+        <div class="gallery-item"><img src="https://images.unsplash.com/photo-1567620832903-9fc6debc209f?q=80&w=400"><div class="gallery-overlay">ALITAS PICANTES</div></div>
     </div>
 
     <main id="menu">
         <h2 class="section-title">🍔 Hamburguesas</h2>
-        <div class="slider-container" data-aos="fade-right">
+        <div class="slider-container" data-aos="fade-left">
             <div class="card">
-                <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&q=80&w=500" alt="Doble Cheese">
-                <span class="combo-badge">INCLUYE REFRESCO</span>
+                <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=500">
                 <h3>Doble Cheese</h3>
                 <span class="price-tag">$12.50</span>
-                <button class="order-btn" onclick="sendOrder('Doble Cheese', '$12.50')">
-                    <i data-lucide="shopping-cart"></i> PEDIR POR WA
-                </button>
+                <button class="btn-add" onclick="addToCart('Doble Cheese', 12.50)">+ AGREGAR</button>
             </div>
             <div class="card">
-                <img src="https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?auto=format&fit=crop&q=80&w=500" alt="Bacon Monster">
+                <img src="https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?q=80&w=500">
                 <h3>Bacon Monster</h3>
                 <span class="price-tag">$14.00</span>
-                <button class="order-btn" onclick="sendOrder('Bacon Monster', '$14.00')">
-                    <i data-lucide="shopping-cart"></i> PEDIR POR WA
-                </button>
+                <button class="btn-add" onclick="addToCart('Bacon Monster', 14.00)">+ AGREGAR</button>
             </div>
         </div>
 
-        <h2 class="section-title">🌮 Tacos & Tortas</h2>
+        <h2 class="section-title">🌮 Tacos & Antojos</h2>
         <div class="slider-container" data-aos="fade-right">
             <div class="card">
-                <img src="https://images.unsplash.com/photo-1565299585323-38d6b0865b47?auto=format&fit=crop&q=80&w=500" alt="Tacos al Pastor">
-                <span class="combo-badge">PROMO: 5x4</span>
+                <img src="https://images.unsplash.com/photo-1565299585323-38d6b0865b47?q=80&w=500">
                 <h3>Tacos al Pastor</h3>
                 <span class="price-tag">$8.00</span>
-                <button class="order-btn" onclick="sendOrder('Tacos al Pastor', '$8.00')">
-                    <i data-lucide="shopping-cart"></i> PEDIR POR WA
-                </button>
+                <button class="btn-add" onclick="addToCart('Tacos al Pastor', 8.00)">+ AGREGAR</button>
             </div>
             <div class="card">
-                <img src="https://images.unsplash.com/photo-1624300629298-e9de39c13be5?auto=format&fit=crop&q=80&w=500" alt="Torta Cubana">
+                <img src="https://images.unsplash.com/photo-1624300629298-e9de39c13be5?q=80&w=500">
                 <h3>Torta Cubana</h3>
                 <span class="price-tag">$10.50</span>
-                <button class="order-btn" onclick="sendOrder('Torta Cubana', '$10.50')">
-                    <i data-lucide="shopping-cart"></i> PEDIR POR WA
-                </button>
+                <button class="btn-add" onclick="addToCart('Torta Cubana', 10.50)">+ AGREGAR</button>
             </div>
         </div>
     </main>
 
-    <footer>
-        <p>© 2026 Street Food Pro. Abierto de 6:00 PM - 12:00 AM</p>
-        <div style="margin-top: 20px; display: flex; justify-content: center; gap: 20px;">
-            <i data-lucide="instagram"></i>
-            <i data-lucide="facebook"></i>
-        </div>
-    </footer>
+    <section class="order-section">
+        <div class="form-container">
+            <h2 style="text-align:center; margin-bottom:20px;">Tu Pedido</h2>
+            <div id="cartItems" style="margin-bottom:20px; border-bottom:1px solid #eee;">
+                </div>
+            <h3 id="cartTotal" style="text-align:right; margin-bottom:30px;">TOTAL: $0.00</h3>
 
-    <a href="https://wa.me/1234567890" class="wa-float">
-        <i data-lucide="message-circle" style="color: white; width: 35px; height: 35px;"></i>
-    </a>
+            <form id="orderForm">
+                <label style="font-weight:bold; font-size:0.8rem;">TU NOMBRE</label>
+                <input type="text" id="custName" required placeholder="¿A quién entregamos?">
+                
+                <label style="font-weight:bold; font-size:0.8rem;">¿CÓMO LO RECIBES?</label>
+                <select id="orderType" onchange="toggleAddress()">
+                    <option value="envio">Entrega a Domicilio</option>
+                    <option value="recoleccion">Pasar al Local</option>
+                </select>
+
+                <div id="addressBox">
+                    <label style="font-weight:bold; font-size:0.8rem;">DIRECCIÓN</label>
+                    <input type="text" id="address" placeholder="Calle, número y colonia">
+                </div>
+
+                <label style="font-weight:bold; font-size:0.8rem;">NOTAS EXTRA</label>
+                <textarea id="notes" placeholder="Ej: Sin cebolla, mucho picante..."></textarea>
+
+                <button type="submit" class="cta-btn">Confirmar Mi Orden</button>
+            </form>
+
+            <div id="ticket">
+                <h3 style="text-align:center; color:var(--primary);">ORDEN GENERADA</h3>
+                <div id="ticketContent" style="margin:20px 0; font-family:'Courier New', monospace; font-size:0.9rem;"></div>
+                <a href="#" id="wsBtn" class="cta-btn ws-btn" target="_blank">
+                    <i data-lucide="message-circle"></i> ENVIAR A WHATSAPP
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="admin-area">
+        <h3 style="text-align:center; margin-bottom:20px;">Control de Ventas (Admin)</h3>
+        <table class="admin-table">
+            <thead>
+                <tr><th>ID</th><th>Cliente</th><th>Pedido</th><th>Tipo</th><th>Total</th></tr>
+            </thead>
+            <tbody id="adminList"></tbody>
+        </table>
+        <div style="text-align:center; margin-top:10px;">
+            <button onclick="clearSales()" style="color:red; background:none; border:none; cursor:pointer; font-size:0.7rem;">[Borrar historial de ventas]</button>
+        </div>
+    </section>
+
+    <footer style="background:#000; padding:40px; text-align:center; opacity:0.8;">
+        <p>STREET FOOD PRO &copy; 2026 | Abierto hasta medianoche</p>
+    </footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        // Inicializar Iconos
+        AOS.init();
         lucide.createIcons();
-        
-        // Inicializar Animaciones
-        AOS.init({ duration: 1000, once: true });
 
-        // Función de Pedido
-        function sendOrder(name, price) {
-            const phoneNumber = "1234567890"; // Reemplaza con tu número real
-            const message = `¡Hola! Me interesa este [PRODUCTO]: ${name.toUpperCase()} - Precio: ${price}. ¿Tienen disponibilidad?`;
-            const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
-            window.open(url, '_blank');
+        let cart = [];
+        let total = 0;
+
+        function addToCart(name, price) {
+            cart.push({name, price});
+            updateCartUI();
         }
+
+        function updateCartUI() {
+            const container = document.getElementById('cartItems');
+            const count = document.getElementById('cartCount');
+            const totalEl = document.getElementById('cartTotal');
+            
+            container.innerHTML = '';
+            total = 0;
+
+            cart.forEach((item, index) => {
+                total += item.price;
+                container.innerHTML += `
+                    <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
+                        <span>${item.name}</span>
+                        <div>
+                            <span>$${item.price.toFixed(2)}</span>
+                            <button onclick="removeFromCart(${index})" style="background:none; border:none; color:red; margin-left:10px; cursor:pointer;">x</button>
+                        </div>
+                    </div>
+                `;
+            });
+
+            count.innerText = cart.length;
+            totalEl.innerText = `TOTAL: $${total.toFixed(2)}`;
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartUI();
+        }
+
+        function toggleAddress() {
+            const type = document.getElementById('orderType').value;
+            document.getElementById('addressBox').style.display = (type === 'envio') ? 'block' : 'none';
+        }
+
+        document.getElementById('orderForm').onsubmit = function(e) {
+            e.preventDefault();
+            if(cart.length === 0) return alert("¡El carrito está vacío!");
+
+            const order = {
+                id: Date.now().toString().slice(-4),
+                name: document.getElementById('custName').value,
+                type: document.getElementById('orderType').value,
+                address: document.getElementById('address').value,
+                notes: document.getElementById('notes').value,
+                items: cart.map(i => i.name).join(", "),
+                total: total.toFixed(2)
+            };
+
+            // Guardar en Admin (Local)
+            const sales = JSON.parse(localStorage.getItem('street_sales') || '[]');
+            sales.push(order);
+            localStorage.setItem('street_sales', JSON.stringify(sales));
+
+            // Generar Ticket
+            document.getElementById('orderForm').style.display = 'none';
+            document.getElementById('ticket').style.display = 'block';
+            
+            let ticketHtml = `ID: #${order.id}<br>CLIENTE: ${order.name}<br>TIPO: ${order.type.toUpperCase()}<br>-------------------<br>`;
+            cart.forEach(i => ticketHtml += `${i.name} - $${i.price}<br>`);
+            ticketHtml += `-------------------<br>TOTAL: $${order.total}`;
+            document.getElementById('ticketContent').innerHTML = ticketHtml;
+
+            // Configurar WhatsApp
+            const miTel = "521234567890"; // CAMBIA ESTO
+            const msg = `🍔 *NUEVO PEDIDO STREET FOOD PRO* (#${order.id})\n\n👤 *Cliente:* ${order.name}\n📍 *Entrega:* ${order.type}\n🏠 *Dirección:* ${order.address || 'N/A'}\n📝 *Notas:* ${order.notes || 'Sin notas'}\n\n🛒 *PRODUCTOS:*\n${cart.map(i => "- "+i.name).join("\n")}\n\n💰 *TOTAL: $${order.total}*`;
+            document.getElementById('wsBtn').href = `https://wa.me/${miTel}?text=${encodeURIComponent(msg)}`;
+            
+            updateAdmin();
+        };
+
+        function updateAdmin() {
+            const sales = JSON.parse(localStorage.getItem('street_sales') || '[]');
+            const list = document.getElementById('adminList');
+            list.innerHTML = '';
+            sales.forEach(s => {
+                list.innerHTML += `<tr><td>#${s.id}</td><td>${s.name}</td><td>${s.items}</td><td>${s.type}</td><td>$${s.total}</td></tr>`;
+            });
+        }
+
+        function clearSales() {
+            localStorage.removeItem('street_sales');
+            updateAdmin();
+        }
+
+        updateAdmin();
     </script>
 </body>
 </html>
