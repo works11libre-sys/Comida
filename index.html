@@ -17,6 +17,7 @@
             --glass: rgba(20, 20, 20, 0.9);
             --text: #ffffff;
             --radius: 25px;
+            --promo: #FFD700;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
@@ -31,7 +32,11 @@
             z-index: 2000; display: flex; justify-content: space-between; align-items: center;
         }
         .logo { font-size: 1rem; color: var(--primary); }
-        .cart-status { display: flex; align-items: center; gap: 8px; background: var(--primary); padding: 5px 15px; border-radius: 20px; font-weight: bold; font-size: 0.9rem; transition: 0.3s; }
+        .cart-status { display: flex; align-items: center; gap: 8px; background: var(--primary); padding: 5px 15px; border-radius: 20px; font-weight: bold; font-size: 0.9rem; transition: 0.3s; text-decoration: none; color: white; }
+
+        /* --- FLASH PROMO --- */
+        .flash-promo { background: var(--primary); color: white; text-align: center; padding: 10px; font-size: 0.8rem; font-weight: bold; position: relative; z-index: 100; margin-top: 0; }
+        #timer { color: var(--promo); font-family: 'Bungee'; }
 
         /* --- HERO --- */
         .hero {
@@ -68,7 +73,7 @@
         }
         .modal-content {
             background: #1a1a1a; width: 100%; max-width: 500px; padding: 30px 20px;
-            border-radius: 30px 30px 0 0; animation: slideUp 0.4s ease;
+            border-radius: 30px 30px 0 0; animation: slideUp 0.3s ease-out;
         }
         @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
         
@@ -88,27 +93,37 @@
         .cart-item-info small { display: block; color: #666; font-size: 0.75rem; line-height: 1.2; }
         
         input, select, textarea { width: 100%; padding: 15px; border-radius: 15px; border: 1px solid #ddd; margin-bottom: 15px; font-size: 1rem; }
+        
+        /* --- CUPÓN STYLING --- */
+        .coupon-area { display: flex; gap: 10px; margin-bottom: 20px; }
+        .coupon-area input { margin-bottom: 0; border: 2px dashed var(--primary); }
+        .btn-coupon { background: #000; color: white; border: none; padding: 0 20px; border-radius: 15px; cursor: pointer; font-weight: bold; }
+
         .cta-btn { 
             background: var(--primary); color: white; padding: 20px; border-radius: 50px; border: none; 
             cursor: pointer; width: 100%; font-weight: 800; text-transform: uppercase; font-size: 1rem;
             box-shadow: 0 10px 20px var(--primary-glow);
         }
 
-        /* --- ADMIN & TICKET --- */
-        #ticket { display: none; background: #fff; border: 2px dashed #000; padding: 20px; border-radius: 15px; margin: 20px 0; font-family: monospace; }
-        .admin-area { background: #000; padding: 40px 15px; overflow-x: auto; }
-        .admin-table { width: 100%; border-collapse: collapse; min-width: 600px; font-size: 0.8rem; }
+        #ticket { display: none; background: #fff; border: 2px dashed #000; padding: 20px; border-radius: 15px; margin: 20px 0; font-family: monospace; white-space: pre-line; }
+        
+        .admin-area { background: #000; padding: 40px 15px; overflow-x: auto; text-align: center; }
+        .admin-table { width: 100%; border-collapse: collapse; min-width: 500px; font-size: 0.8rem; margin: 0 auto; color: #fff; }
         .admin-table th { background: var(--primary); padding: 10px; text-align: left; }
-        .admin-table td { padding: 10px; border-bottom: 1px solid #222; }
+        .admin-table td { padding: 10px; border-bottom: 1px solid #222; text-align: left; }
 
         .floating-add-anim {
             position: fixed; color: var(--primary); font-weight: bold; z-index: 4000;
-            pointer-events: none; animation: floatUp 1s forwards;
+            pointer-events: none; animation: floatUp 1s forwards; font-family: 'Bungee';
         }
         @keyframes floatUp { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(-100px); } }
     </style>
 </head>
 <body>
+
+    <div class="flash-promo">
+        ⚡ ¡OFERTA RELÁMPAGO! 10% OFF CON EL CÓDIGO: <span style="color:var(--promo)">PROMO10</span> - TERMINA EN: <span id="timer">05:00</span>
+    </div>
 
     <nav class="navbar">
         <div class="logo">STREET FOOD PRO</div>
@@ -120,7 +135,7 @@
 
     <section class="hero">
         <h1 data-aos="fade-down">SABOR AL<br>LÍMITE</h1>
-        <p data-aos="fade-up">Personaliza cada ingrediente y recibe el sabor real en tu puerta.</p>
+        <p data-aos="fade-up">Personaliza tu orden al máximo y recibe el verdadero sabor de la calle.</p>
     </section>
 
     <main id="menu">
@@ -176,7 +191,6 @@
     <div id="customModal" class="modal">
         <div class="modal-content">
             <h3 id="modalTitle" style="color:var(--primary); margin-bottom:20px;">Personalizar</h3>
-            
             <div class="option-group">
                 <h4>🌶️ ELIGE TU SALSA (1 Máx)</h4>
                 <div class="checkbox-grid">
@@ -186,9 +200,8 @@
                     <label class="opt-label"><input type="radio" name="salsa" value="BBQ"> BBQ</label>
                 </div>
             </div>
-
             <div class="option-group">
-                <h4>🥬 INGREDIENTES (Quitar/Poner)</h4>
+                <h4>🥬 INGREDIENTES</h4>
                 <div class="checkbox-grid">
                     <label class="opt-label"><input type="checkbox" class="ingrediente" value="Cebolla" checked> Cebolla</label>
                     <label class="opt-label"><input type="checkbox" class="ingrediente" value="Cilantro" checked> Cilantro</label>
@@ -196,9 +209,8 @@
                     <label class="opt-label"><input type="checkbox" class="ingrediente" value="Extra Queso"> Extra Queso</label>
                 </div>
             </div>
-
             <button class="cta-btn" onclick="confirmCustomization()">AÑADIR AL CARRITO</button>
-            <button style="background:none; border:none; color:#888; width:100%; margin-top:15px; cursor:pointer;" onclick="closeModal()">Cancelar</button>
+            <button style="background:none; border:none; color:#888; width:100%; margin-top:15px;" onclick="closeModal()">Cancelar</button>
         </div>
     </div>
 
@@ -206,7 +218,13 @@
         <div style="max-width:500px; margin:0 auto;">
             <h2 style="text-align:center; margin-bottom:25px;">🛒 Tu Comanda</h2>
             <div id="cartItems"></div>
-            <h3 id="cartTotal" style="text-align:right; margin:25px 0; border-top:2px solid #eee; padding-top:10px;">TOTAL: $0.00</h3>
+            
+            <div class="coupon-area">
+                <input type="text" id="couponInput" placeholder="¿Tienes un cupón?">
+                <button class="btn-coupon" onclick="applyCoupon()">APLICAR</button>
+            </div>
+
+            <h3 id="cartTotal" style="text-align:right; margin-bottom:25px;">TOTAL: $0.00</h3>
 
             <form id="orderForm">
                 <input type="text" id="custName" required placeholder="👤 Tu nombre">
@@ -231,14 +249,14 @@
     </section>
 
     <section class="admin-area">
-        <h3 style="color:var(--primary); text-align:center; margin-bottom:20px;">Ventas Recientes</h3>
+        <h3 style="color:var(--primary); margin-bottom:20px;">Panel de Ventas</h3>
         <table class="admin-table">
             <thead>
-                <tr><th>ID</th><th>Cliente</th><th>Pedido</th><th>Total</th></tr>
+                <tr><th>ID</th><th>Cliente</th><th>Total</th></tr>
             </thead>
             <tbody id="adminList"></tbody>
         </table>
-        <p style="text-align:center; margin-top:20px; font-size:0.7rem; color:#444;" onclick="clearSales()">[RESETEAR SISTEMA]</p>
+        <p style="margin-top:20px; font-size:0.6rem; color:#444;" onclick="clearSales()">[RESETEAR SISTEMA]</p>
     </section>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
@@ -248,120 +266,115 @@
 
         let cart = [];
         let total = 0;
+        let discount = 0;
         let currentItem = null;
 
-        // MODAL LOGIC
+        // FLASH TIMER (5 minutos)
+        let time = 300;
+        const timerEl = document.getElementById('timer');
+        setInterval(() => {
+            let mins = Math.floor(time / 60);
+            let secs = time % 60;
+            timerEl.innerText = `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+            if(time > 0) time--;
+        }, 1000);
+
         function openCustomizer(name, price) {
             currentItem = { name, price };
             document.getElementById('modalTitle').innerText = "Personalizar " + name;
             document.getElementById('customModal').style.display = 'flex';
         }
 
-        function closeModal() {
-            document.getElementById('customModal').style.display = 'none';
-        }
+        function closeModal() { document.getElementById('customModal').style.display = 'none'; }
 
         function confirmCustomization() {
             const salsa = document.querySelector('input[name="salsa"]:checked')?.value || "Sin salsa";
             const ingredientes = Array.from(document.querySelectorAll('.ingrediente:checked')).map(el => el.value);
-            
-            const customName = `${currentItem.name}`;
             const details = `Salsa: ${salsa} | Extras: ${ingredientes.join(", ")}`;
-            
-            addToCart(customName, currentItem.price, details);
+            addToCart(currentItem.name, currentItem.price, details);
             closeModal();
-            // Reset modal
             document.querySelectorAll('input[type="checkbox"], input[type="radio"]').forEach(el => el.checked = el.defaultChecked);
         }
 
-        function quickAdd(name, price) {
-            addToCart(name, price, "Sin personalización");
-        }
+        function quickAdd(name, price) { addToCart(name, price, "Sencillo"); }
 
         function addToCart(name, price, details) {
             cart.push({ name, price, details });
             updateCartUI();
-            
-            // Animación de agregar
             const anim = document.createElement('div');
             anim.className = 'floating-add-anim';
-            anim.innerText = '+1 ' + name;
+            anim.innerText = '+1';
             anim.style.left = event.pageX + 'px';
             anim.style.top = event.pageY + 'px';
             document.body.appendChild(anim);
             setTimeout(() => anim.remove(), 1000);
         }
 
-        function updateCartUI() {
-            const container = document.getElementById('cartItems');
-            const count = document.getElementById('cartCount');
-            const totalEl = document.getElementById('cartTotal');
-            
-            container.innerHTML = '';
-            total = 0;
-
-            cart.forEach((item, index) => {
-                total += item.price;
-                container.innerHTML += `
-                    <div class="cart-item">
-                        <div class="cart-item-info">
-                            <strong>${item.name}</strong>
-                            <small>${item.details}</small>
-                        </div>
-                        <div style="display:flex; align-items:center; gap:10px;">
-                            <span>$${item.price.toFixed(2)}</span>
-                            <button onclick="removeFromCart(${index})" style="background:none; border:none; color:red; cursor:pointer;"><i data-lucide="trash-2" size="16"></i></button>
-                        </div>
-                    </div>
-                `;
-            });
-            lucide.createIcons();
-            count.innerText = cart.length;
-            totalEl.innerText = `TOTAL: $${total.toFixed(2)}`;
-        }
-
-        function removeFromCart(index) {
-            cart.splice(index, 1);
+        function applyCoupon() {
+            const code = document.getElementById('couponInput').value.toUpperCase();
+            if(code === 'PROMO10') {
+                discount = 0.10;
+                alert("¡Cupón aplicado! 10% de descuento.");
+            } else {
+                discount = 0;
+                alert("Cupón inválido.");
+            }
             updateCartUI();
         }
 
-        function toggleAddress() {
-            const type = document.getElementById('orderType').value;
-            document.getElementById('addressBox').style.display = (type === 'Domicilio') ? 'block' : 'none';
+        function updateCartUI() {
+            const container = document.getElementById('cartItems');
+            const totalEl = document.getElementById('cartTotal');
+            container.innerHTML = '';
+            total = cart.reduce((acc, i) => acc + i.price, 0);
+            
+            cart.forEach((item, index) => {
+                container.innerHTML += `
+                    <div class="cart-item">
+                        <div class="cart-item-info"><strong>${item.name}</strong><br><small>${item.details}</small></div>
+                        <span>$${item.price.toFixed(2)} <i data-lucide="x" size="14" onclick="removeFromCart(${index})" style="color:red; cursor:pointer;"></i></span>
+                    </div>`;
+            });
+
+            let finalTotal = total - (total * discount);
+            document.getElementById('cartCount').innerText = cart.length;
+            totalEl.innerHTML = discount > 0 ? 
+                `<span style="font-size:0.8rem; color:green; text-decoration:line-through;">$${total.toFixed(2)}</span> TOTAL: $${finalTotal.toFixed(2)}` : 
+                `TOTAL: $${total.toFixed(2)}`;
+            lucide.createIcons();
         }
 
-        // FORM SUBMISSION
+        function removeFromCart(index) { cart.splice(index, 1); updateCartUI(); }
+
+        function toggleAddress() {
+            document.getElementById('addressBox').style.display = (document.getElementById('orderType').value === 'Domicilio') ? 'block' : 'none';
+        }
+
         document.getElementById('orderForm').onsubmit = function(e) {
             e.preventDefault();
             if(cart.length === 0) return alert("Carrito vacío");
 
+            let finalTotal = (total - (total * discount)).toFixed(2);
             const order = {
-                id: Math.floor(1000 + Math.random() * 9000),
+                id: Math.floor(Math.random() * 9000),
                 name: document.getElementById('custName').value,
                 type: document.getElementById('orderType').value,
-                address: document.getElementById('address').value,
-                notes: document.getElementById('notes').value,
-                total: total.toFixed(2),
-                items: cart.map(i => `${i.name} (${i.details})`).join("\n")
+                total: finalTotal
             };
 
-            // Admin Logic
             const sales = JSON.parse(localStorage.getItem('street_pro_sales') || '[]');
             sales.push(order);
             localStorage.setItem('street_pro_sales', JSON.stringify(sales));
 
-            // UI Feedback
             document.getElementById('orderForm').style.display = 'none';
             document.getElementById('ticket').style.display = 'block';
             
-            const ticketText = `ORDEN #${order.id}\n${order.name}\n${order.type}\n-----------------\n${order.items}\n-----------------\nTOTAL: $${order.total}`;
+            const ticketText = `✨ TICKET DE ORDEN #${order.id}\n👤 Cliente: ${order.name}\n📍 Entrega: ${order.type}\n--------------------------\n${cart.map(i => "▪️ "+i.name + " ("+i.details+")").join("\n")}\n--------------------------\n💰 TOTAL FINAL: $${finalTotal}`;
             document.getElementById('ticketContent').innerText = ticketText;
 
-            // WhatsApp link
-            const tel = "1234567890"; // Reemplazar con número real
-            const msg = `🚀 *ORDEN STREET FOOD PRO #${order.id}*\n\n👤 *Cliente:* ${order.name}\n📍 *Modo:* ${order.type}\n🏠 *Dir:* ${order.address || 'N/A'}\n\n🛒 *PEDIDO:*\n${cart.map(i => "✅ "+i.name + " ("+i.details+")").join("\n")}\n\n💰 *TOTAL: $${order.total}*\n📝 *Notas:* ${order.notes || 'Ninguna'}`;
-            document.getElementById('wsBtn').href = `https://wa.me/${tel}?text=${encodeURIComponent(msg)}`;
-            
+            const miTel = "1234567890"; // TU WHATSAPP AQUÍ
+            const msg = `🍔 *NUEVA ORDEN STREET FOOD PRO #${order.id}*\n\n👤 *Cliente:* ${order.name}\n📍 *Modo:* ${order.type}\n🏠 *Dirección:* ${document.getElementById('address').value || 'N/A'}\n\n🛒 *PEDIDO:*\n${cart.map(i => "✅ "+i.name + " ("+i.details+")").join("\n")}\n\n💵 *TOTAL A COBRAR: $${finalTotal}*${discount > 0 ? '\n🎁 _Cupón aplicado: 10% OFF_' : ''}\n📝 *Notas:* ${document.getElementById('notes').value || 'Sin notas'}`;
+            document.getElementById('wsBtn').href = `https://wa.me/${miTel}?text=${encodeURIComponent(msg)}`;
             updateAdmin();
         };
 
@@ -370,17 +383,11 @@
             const list = document.getElementById('adminList');
             list.innerHTML = '';
             sales.slice(-5).reverse().forEach(s => {
-                list.innerHTML += `<tr><td>#${s.id}</td><td>${s.name}</td><td>${s.type}</td><td>$${s.total}</td></tr>`;
+                list.innerHTML += `<tr><td>#${s.id}</td><td>${s.name}</td><td>$${s.total}</td></tr>`;
             });
         }
 
-        function clearSales() {
-            if(confirm("¿Borrar historial?")) {
-                localStorage.removeItem('street_pro_sales');
-                updateAdmin();
-            }
-        }
-
+        function clearSales() { localStorage.removeItem('street_pro_sales'); updateAdmin(); }
         updateAdmin();
     </script>
 </body>
