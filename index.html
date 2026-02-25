@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Street Food Pro | El Sabor que Manda</title>
+    <title>Street Food Pro | Menú Premium</title>
     <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
@@ -14,156 +14,216 @@
             --primary-glow: rgba(255, 77, 0, 0.4);
             --bg: #0a0a0a;
             --card-bg: rgba(255, 255, 255, 0.05);
-            --glass: rgba(20, 20, 20, 0.85);
+            --glass: rgba(20, 20, 20, 0.9);
             --text: #ffffff;
             --radius: 25px;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
-        body { background-color: var(--bg); color: var(--text); overflow-x: hidden; line-height: 1.6; }
+        body { background-color: var(--bg); color: var(--text); overflow-x: hidden; line-height: 1.4; }
         h1, h2, h3 { font-family: 'Bungee', sans-serif; text-transform: uppercase; }
 
         /* --- NAVBAR --- */
         .navbar {
-            position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
-            width: 90%; max-width: 600px; background: var(--glass); backdrop-filter: blur(15px);
-            border: 1px solid rgba(255,255,255,0.1); padding: 12px 25px; border-radius: 50px;
-            z-index: 1000; display: flex; justify-content: space-between; align-items: center;
+            position: fixed; top: 15px; left: 50%; transform: translateX(-50%);
+            width: 95%; max-width: 500px; background: var(--glass); backdrop-filter: blur(15px);
+            border: 1px solid rgba(255,255,255,0.1); padding: 10px 20px; border-radius: 50px;
+            z-index: 2000; display: flex; justify-content: space-between; align-items: center;
         }
-        .logo { font-size: 1.2rem; color: var(--primary); }
-        .cart-counter { background: var(--primary); color: white; padding: 2px 8px; border-radius: 10px; font-size: 0.8rem; font-weight: bold; }
+        .logo { font-size: 1rem; color: var(--primary); }
+        .cart-status { display: flex; align-items: center; gap: 8px; background: var(--primary); padding: 5px 15px; border-radius: 20px; font-weight: bold; font-size: 0.9rem; transition: 0.3s; }
 
         /* --- HERO --- */
         .hero {
-            height: 80vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
-            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&q=80&w=1920');
+            height: 60vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
+            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&q=80&w=1920');
             background-size: cover; background-position: center; padding: 20px;
         }
-        .hero h1 { font-size: 3.5rem; text-shadow: 0 0 20px var(--primary-glow); margin-bottom: 10px; }
+        .hero h1 { font-size: 2.8rem; text-shadow: 0 0 20px var(--primary-glow); margin-bottom: 5px; line-height: 1; }
+        .hero p { opacity: 0.8; font-size: 0.9rem; max-width: 300px; }
 
-        /* --- GALERÍA INSTAGRAMER --- */
-        .gallery-title { text-align: center; padding-top: 50px; color: var(--primary); }
-        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 10px; padding: 20px; max-width: 1100px; margin: 0 auto; }
-        .gallery-item { height: 180px; border-radius: 15px; overflow: hidden; position: relative; }
-        .gallery-item img { width: 100%; height: 100%; object-fit: cover; }
-        .gallery-overlay { position: absolute; inset: 0; background: rgba(255, 77, 0, 0.6); display: flex; align-items: center; justify-content: center; opacity: 0; transition: 0.3s; font-weight: bold; }
-        .gallery-item:hover .gallery-overlay { opacity: 1; }
-
-        /* --- MENÚ SLIDERS --- */
-        .section-title { padding: 40px 20px 10px; font-size: 1.8rem; text-align: center; }
-        .slider-container { display: flex; overflow-x: auto; gap: 20px; padding: 20px; scroll-snap-type: x mandatory; scrollbar-width: none; }
+        /* --- MENÚ CATEGORÍAS --- */
+        .section-title { padding: 30px 20px 5px; font-size: 1.5rem; text-align: center; color: var(--primary); }
+        .slider-container { display: flex; overflow-x: auto; gap: 15px; padding: 15px; scroll-snap-type: x mandatory; scrollbar-width: none; }
         .slider-container::-webkit-scrollbar { display: none; }
-        .card { flex: 0 0 280px; background: var(--card-bg); border-radius: var(--radius); padding: 15px; border: 1px solid rgba(255,255,255,0.05); transition: 0.3s; position: relative; }
-        .card img { width: 100%; height: 180px; object-fit: cover; border-radius: 15px; margin-bottom: 15px; }
-        .price-tag { color: var(--primary); font-weight: bold; font-size: 1.4rem; display: block; margin: 10px 0; }
         
-        /* --- ORDENAR --- */
-        .order-section { background: white; color: var(--dark); padding: 80px 20px; border-radius: 50px 50px 0 0; margin-top: 50px; color: #000; }
-        .form-container { max-width: 600px; margin: 0 auto; }
-        input, select, textarea { width: 100%; padding: 15px; border-radius: 12px; border: 1px solid #ddd; margin-bottom: 15px; font-size: 1rem; }
-        .btn-add { background: var(--primary); color: white; border: none; padding: 12px; border-radius: 12px; width: 100%; cursor: pointer; font-weight: bold; }
+        .card { 
+            flex: 0 0 260px; background: var(--card-bg); border-radius: var(--radius); padding: 12px; 
+            border: 1px solid rgba(255,255,255,0.05); transition: 0.3s; scroll-snap-align: center;
+        }
+        .card img { width: 100%; height: 160px; object-fit: cover; border-radius: 18px; margin-bottom: 10px; }
+        .card h3 { font-size: 1.1rem; margin-bottom: 5px; }
+        .price-tag { color: var(--primary); font-weight: bold; font-size: 1.3rem; display: block; margin-bottom: 10px; }
         
-        /* --- TICKET & ADMIN --- */
-        #ticket { display: none; background: #fff; border: 2px dashed var(--primary); padding: 30px; border-radius: 20px; margin-top: 20px; }
-        .admin-area { background: #111; padding: 50px 20px; }
-        .admin-table { width: 100%; max-width: 900px; margin: 0 auto; border-collapse: collapse; background: #1a1a1a; color: white; font-size: 0.8rem; }
-        .admin-table th, .admin-table td { padding: 15px; border: 1px solid #333; text-align: left; }
-        .admin-table th { background: var(--primary); }
+        .btn-add { 
+            background: var(--primary); color: white; border: none; padding: 12px; border-radius: 15px; 
+            width: 100%; cursor: pointer; font-weight: bold; text-transform: uppercase; font-size: 0.8rem;
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+        }
 
-        .cta-btn { background: var(--primary); color: white; padding: 18px; border-radius: 50px; border: none; cursor: pointer; width: 100%; font-weight: 700; text-transform: uppercase; margin-top: 10px; }
-        .ws-btn { background: #25d366 !important; text-decoration: none; display: flex; justify-content: center; align-items: center; gap: 10px; }
+        /* --- MODAL PERSONALIZACIÓN --- */
+        .modal {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 3000;
+            display: none; align-items: flex-end; justify-content: center;
+        }
+        .modal-content {
+            background: #1a1a1a; width: 100%; max-width: 500px; padding: 30px 20px;
+            border-radius: 30px 30px 0 0; animation: slideUp 0.4s ease;
+        }
+        @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+        
+        .option-group { margin-bottom: 20px; }
+        .option-group h4 { margin-bottom: 10px; font-size: 0.9rem; color: #888; border-bottom: 1px solid #333; padding-bottom: 5px; }
+        .checkbox-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .opt-label { 
+            background: #222; padding: 10px; border-radius: 10px; display: flex; align-items: center; 
+            gap: 10px; font-size: 0.85rem; cursor: pointer; border: 1px solid transparent;
+        }
+        .opt-label input { accent-color: var(--primary); }
+        .opt-label:has(input:checked) { border-color: var(--primary); background: rgba(255, 77, 0, 0.1); }
+
+        /* --- CARRITO & ORDEN --- */
+        .order-section { background: white; color: #000; padding: 60px 20px; border-radius: 40px 40px 0 0; margin-top: 40px; }
+        .cart-item { display: flex; justify-content: space-between; align-items: flex-start; padding: 15px 0; border-bottom: 1px solid #eee; }
+        .cart-item-info small { display: block; color: #666; font-size: 0.75rem; line-height: 1.2; }
+        
+        input, select, textarea { width: 100%; padding: 15px; border-radius: 15px; border: 1px solid #ddd; margin-bottom: 15px; font-size: 1rem; }
+        .cta-btn { 
+            background: var(--primary); color: white; padding: 20px; border-radius: 50px; border: none; 
+            cursor: pointer; width: 100%; font-weight: 800; text-transform: uppercase; font-size: 1rem;
+            box-shadow: 0 10px 20px var(--primary-glow);
+        }
+
+        /* --- ADMIN & TICKET --- */
+        #ticket { display: none; background: #fff; border: 2px dashed #000; padding: 20px; border-radius: 15px; margin: 20px 0; font-family: monospace; }
+        .admin-area { background: #000; padding: 40px 15px; overflow-x: auto; }
+        .admin-table { width: 100%; border-collapse: collapse; min-width: 600px; font-size: 0.8rem; }
+        .admin-table th { background: var(--primary); padding: 10px; text-align: left; }
+        .admin-table td { padding: 10px; border-bottom: 1px solid #222; }
+
+        .floating-add-anim {
+            position: fixed; color: var(--primary); font-weight: bold; z-index: 4000;
+            pointer-events: none; animation: floatUp 1s forwards;
+        }
+        @keyframes floatUp { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(-100px); } }
     </style>
 </head>
 <body>
 
     <nav class="navbar">
         <div class="logo">STREET FOOD PRO</div>
-        <div style="display:flex; align-items:center; gap:10px;">
-            <i data-lucide="shopping-cart"></i>
-            <span class="cart-counter" id="cartCount">0</span>
-        </div>
+        <a href="#orden" class="cart-status">
+            <i data-lucide="shopping-bag" size="18"></i>
+            <span id="cartCount">0</span>
+        </a>
     </nav>
 
     <section class="hero">
-        <h1 data-aos="zoom-out">EL SABOR<br>QUE MANDA</h1>
-        <p>Auténtica comida callejera con calidad de restaurante. <br>Arma tu orden y recibe en casa.</p>
-        <a href="#menu" class="cta-btn" style="max-width: 250px; text-decoration:none; display:block;">ORDENAR AHORA</a>
+        <h1 data-aos="fade-down">SABOR AL<br>LÍMITE</h1>
+        <p data-aos="fade-up">Personaliza cada ingrediente y recibe el sabor real en tu puerta.</p>
     </section>
-
-    <h3 class="gallery-title">#LoMasVendido</h3>
-    <div class="gallery-grid">
-        <div class="gallery-item"><img src="https://images.unsplash.com/photo-1571091718767-18b5b1457add?q=80&w=400"><div class="gallery-overlay">TOP 1 BURGER</div></div>
-        <div class="gallery-item"><img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?q=80&w=400"><div class="gallery-overlay">PIZZA ARTESANAL</div></div>
-        <div class="gallery-item"><img src="https://images.unsplash.com/photo-1619174470144-0312342e1a1b?q=80&w=400"><div class="gallery-overlay">TACOS REALES</div></div>
-        <div class="gallery-item"><img src="https://images.unsplash.com/photo-1567620832903-9fc6debc209f?q=80&w=400"><div class="gallery-overlay">ALITAS PICANTES</div></div>
-    </div>
 
     <main id="menu">
         <h2 class="section-title">🍔 Hamburguesas</h2>
-        <div class="slider-container" data-aos="fade-left">
+        <div class="slider-container" data-aos="fade-right">
             <div class="card">
-                <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=500">
+                <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=400">
                 <h3>Doble Cheese</h3>
                 <span class="price-tag">$12.50</span>
-                <button class="btn-add" onclick="addToCart('Doble Cheese', 12.50)">+ AGREGAR</button>
+                <button class="btn-add" onclick="openCustomizer('Doble Cheese', 12.50)">+ Personalizar</button>
             </div>
             <div class="card">
-                <img src="https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?q=80&w=500">
+                <img src="https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?q=80&w=400">
                 <h3>Bacon Monster</h3>
                 <span class="price-tag">$14.00</span>
-                <button class="btn-add" onclick="addToCart('Bacon Monster', 14.00)">+ AGREGAR</button>
+                <button class="btn-add" onclick="openCustomizer('Bacon Monster', 14.00)">+ Personalizar</button>
             </div>
         </div>
 
-        <h2 class="section-title">🌮 Tacos & Antojos</h2>
-        <div class="slider-container" data-aos="fade-right">
+        <h2 class="section-title">🌮 Tacos & Tortas</h2>
+        <div class="slider-container" data-aos="fade-left">
             <div class="card">
-                <img src="https://images.unsplash.com/photo-1565299585323-38d6b0865b47?q=80&w=500">
+                <img src="https://images.unsplash.com/photo-1565299585323-38d6b0865b47?q=80&w=400">
                 <h3>Tacos al Pastor</h3>
                 <span class="price-tag">$8.00</span>
-                <button class="btn-add" onclick="addToCart('Tacos al Pastor', 8.00)">+ AGREGAR</button>
+                <button class="btn-add" onclick="openCustomizer('Tacos al Pastor', 8.00)">+ Personalizar</button>
             </div>
             <div class="card">
-                <img src="https://images.unsplash.com/photo-1624300629298-e9de39c13be5?q=80&w=500">
+                <img src="https://images.unsplash.com/photo-1624300629298-e9de39c13be5?q=80&w=400">
                 <h3>Torta Cubana</h3>
                 <span class="price-tag">$10.50</span>
-                <button class="btn-add" onclick="addToCart('Torta Cubana', 10.50)">+ AGREGAR</button>
+                <button class="btn-add" onclick="openCustomizer('Torta Cubana', 10.50)">+ Personalizar</button>
+            </div>
+        </div>
+
+        <h2 class="section-title">🥤 Bebidas & Extras</h2>
+        <div class="slider-container" data-aos="fade-up">
+            <div class="card" style="flex: 0 0 180px;">
+                <img src="https://images.unsplash.com/photo-1622483767028-3f66f32aef97?q=80&w=200">
+                <h3>Refresco 600ml</h3>
+                <span class="price-tag">$2.50</span>
+                <button class="btn-add" onclick="quickAdd('Refresco 600ml', 2.50)">+ Agregar</button>
+            </div>
+            <div class="card" style="flex: 0 0 180px;">
+                <img src="https://images.unsplash.com/photo-1573088693240-629f19630325?q=80&w=200">
+                <h3>Papas Fritas</h3>
+                <span class="price-tag">$4.00</span>
+                <button class="btn-add" onclick="quickAdd('Papas Fritas', 4.00)">+ Agregar</button>
             </div>
         </div>
     </main>
 
-    <section class="order-section">
-        <div class="form-container">
-            <h2 style="text-align:center; margin-bottom:20px;">Tu Pedido</h2>
-            <div id="cartItems" style="margin-bottom:20px; border-bottom:1px solid #eee;">
+    <div id="customModal" class="modal">
+        <div class="modal-content">
+            <h3 id="modalTitle" style="color:var(--primary); margin-bottom:20px;">Personalizar</h3>
+            
+            <div class="option-group">
+                <h4>🌶️ ELIGE TU SALSA (1 Máx)</h4>
+                <div class="checkbox-grid">
+                    <label class="opt-label"><input type="radio" name="salsa" value="Verde (No pica)"> Verde</label>
+                    <label class="opt-label"><input type="radio" name="salsa" value="Roja (Pica poco)"> Roja</label>
+                    <label class="opt-label"><input type="radio" name="salsa" value="Habanero (Fuego)"> Habanero</label>
+                    <label class="opt-label"><input type="radio" name="salsa" value="BBQ"> BBQ</label>
                 </div>
-            <h3 id="cartTotal" style="text-align:right; margin-bottom:30px;">TOTAL: $0.00</h3>
+            </div>
+
+            <div class="option-group">
+                <h4>🥬 INGREDIENTES (Quitar/Poner)</h4>
+                <div class="checkbox-grid">
+                    <label class="opt-label"><input type="checkbox" class="ingrediente" value="Cebolla" checked> Cebolla</label>
+                    <label class="opt-label"><input type="checkbox" class="ingrediente" value="Cilantro" checked> Cilantro</label>
+                    <label class="opt-label"><input type="checkbox" class="ingrediente" value="Sin Jitomate"> No Jitomate</label>
+                    <label class="opt-label"><input type="checkbox" class="ingrediente" value="Extra Queso"> Extra Queso</label>
+                </div>
+            </div>
+
+            <button class="cta-btn" onclick="confirmCustomization()">AÑADIR AL CARRITO</button>
+            <button style="background:none; border:none; color:#888; width:100%; margin-top:15px; cursor:pointer;" onclick="closeModal()">Cancelar</button>
+        </div>
+    </div>
+
+    <section class="order-section" id="orden">
+        <div style="max-width:500px; margin:0 auto;">
+            <h2 style="text-align:center; margin-bottom:25px;">🛒 Tu Comanda</h2>
+            <div id="cartItems"></div>
+            <h3 id="cartTotal" style="text-align:right; margin:25px 0; border-top:2px solid #eee; padding-top:10px;">TOTAL: $0.00</h3>
 
             <form id="orderForm">
-                <label style="font-weight:bold; font-size:0.8rem;">TU NOMBRE</label>
-                <input type="text" id="custName" required placeholder="¿A quién entregamos?">
-                
-                <label style="font-weight:bold; font-size:0.8rem;">¿CÓMO LO RECIBES?</label>
+                <input type="text" id="custName" required placeholder="👤 Tu nombre">
                 <select id="orderType" onchange="toggleAddress()">
-                    <option value="envio">Entrega a Domicilio</option>
-                    <option value="recoleccion">Pasar al Local</option>
+                    <option value="Domicilio">📍 Entrega a Domicilio</option>
+                    <option value="Pasar al Local">🏪 Pasar al Local</option>
                 </select>
-
                 <div id="addressBox">
-                    <label style="font-weight:bold; font-size:0.8rem;">DIRECCIÓN</label>
-                    <input type="text" id="address" placeholder="Calle, número y colonia">
+                    <input type="text" id="address" placeholder="🏠 Dirección completa">
                 </div>
-
-                <label style="font-weight:bold; font-size:0.8rem;">NOTAS EXTRA</label>
-                <textarea id="notes" placeholder="Ej: Sin cebolla, mucho picante..."></textarea>
-
-                <button type="submit" class="cta-btn">Confirmar Mi Orden</button>
+                <textarea id="notes" placeholder="📝 Notas especiales (Ej: timbre descompuesto)"></textarea>
+                <button type="submit" class="cta-btn">Confirmar Pedido</button>
             </form>
 
             <div id="ticket">
-                <h3 style="text-align:center; color:var(--primary);">ORDEN GENERADA</h3>
-                <div id="ticketContent" style="margin:20px 0; font-family:'Courier New', monospace; font-size:0.9rem;"></div>
-                <a href="#" id="wsBtn" class="cta-btn ws-btn" target="_blank">
+                <div id="ticketContent"></div>
+                <a href="#" id="wsBtn" class="cta-btn" style="background:#25d366; text-decoration:none; display:flex; justify-content:center; align-items:center; gap:10px; margin-top:15px;">
                     <i data-lucide="message-circle"></i> ENVIAR A WHATSAPP
                 </a>
             </div>
@@ -171,33 +231,65 @@
     </section>
 
     <section class="admin-area">
-        <h3 style="text-align:center; margin-bottom:20px;">Control de Ventas (Admin)</h3>
+        <h3 style="color:var(--primary); text-align:center; margin-bottom:20px;">Ventas Recientes</h3>
         <table class="admin-table">
             <thead>
-                <tr><th>ID</th><th>Cliente</th><th>Pedido</th><th>Tipo</th><th>Total</th></tr>
+                <tr><th>ID</th><th>Cliente</th><th>Pedido</th><th>Total</th></tr>
             </thead>
             <tbody id="adminList"></tbody>
         </table>
-        <div style="text-align:center; margin-top:10px;">
-            <button onclick="clearSales()" style="color:red; background:none; border:none; cursor:pointer; font-size:0.7rem;">[Borrar historial de ventas]</button>
-        </div>
+        <p style="text-align:center; margin-top:20px; font-size:0.7rem; color:#444;" onclick="clearSales()">[RESETEAR SISTEMA]</p>
     </section>
-
-    <footer style="background:#000; padding:40px; text-align:center; opacity:0.8;">
-        <p>STREET FOOD PRO &copy; 2026 | Abierto hasta medianoche</p>
-    </footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init();
+        AOS.init({ duration: 800, once: true });
         lucide.createIcons();
 
         let cart = [];
         let total = 0;
+        let currentItem = null;
 
-        function addToCart(name, price) {
-            cart.push({name, price});
+        // MODAL LOGIC
+        function openCustomizer(name, price) {
+            currentItem = { name, price };
+            document.getElementById('modalTitle').innerText = "Personalizar " + name;
+            document.getElementById('customModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('customModal').style.display = 'none';
+        }
+
+        function confirmCustomization() {
+            const salsa = document.querySelector('input[name="salsa"]:checked')?.value || "Sin salsa";
+            const ingredientes = Array.from(document.querySelectorAll('.ingrediente:checked')).map(el => el.value);
+            
+            const customName = `${currentItem.name}`;
+            const details = `Salsa: ${salsa} | Extras: ${ingredientes.join(", ")}`;
+            
+            addToCart(customName, currentItem.price, details);
+            closeModal();
+            // Reset modal
+            document.querySelectorAll('input[type="checkbox"], input[type="radio"]').forEach(el => el.checked = el.defaultChecked);
+        }
+
+        function quickAdd(name, price) {
+            addToCart(name, price, "Sin personalización");
+        }
+
+        function addToCart(name, price, details) {
+            cart.push({ name, price, details });
             updateCartUI();
+            
+            // Animación de agregar
+            const anim = document.createElement('div');
+            anim.className = 'floating-add-anim';
+            anim.innerText = '+1 ' + name;
+            anim.style.left = event.pageX + 'px';
+            anim.style.top = event.pageY + 'px';
+            document.body.appendChild(anim);
+            setTimeout(() => anim.remove(), 1000);
         }
 
         function updateCartUI() {
@@ -211,16 +303,19 @@
             cart.forEach((item, index) => {
                 total += item.price;
                 container.innerHTML += `
-                    <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
-                        <span>${item.name}</span>
-                        <div>
+                    <div class="cart-item">
+                        <div class="cart-item-info">
+                            <strong>${item.name}</strong>
+                            <small>${item.details}</small>
+                        </div>
+                        <div style="display:flex; align-items:center; gap:10px;">
                             <span>$${item.price.toFixed(2)}</span>
-                            <button onclick="removeFromCart(${index})" style="background:none; border:none; color:red; margin-left:10px; cursor:pointer;">x</button>
+                            <button onclick="removeFromCart(${index})" style="background:none; border:none; color:red; cursor:pointer;"><i data-lucide="trash-2" size="16"></i></button>
                         </div>
                     </div>
                 `;
             });
-
+            lucide.createIcons();
             count.innerText = cart.length;
             totalEl.innerText = `TOTAL: $${total.toFixed(2)}`;
         }
@@ -232,57 +327,58 @@
 
         function toggleAddress() {
             const type = document.getElementById('orderType').value;
-            document.getElementById('addressBox').style.display = (type === 'envio') ? 'block' : 'none';
+            document.getElementById('addressBox').style.display = (type === 'Domicilio') ? 'block' : 'none';
         }
 
+        // FORM SUBMISSION
         document.getElementById('orderForm').onsubmit = function(e) {
             e.preventDefault();
-            if(cart.length === 0) return alert("¡El carrito está vacío!");
+            if(cart.length === 0) return alert("Carrito vacío");
 
             const order = {
-                id: Date.now().toString().slice(-4),
+                id: Math.floor(1000 + Math.random() * 9000),
                 name: document.getElementById('custName').value,
                 type: document.getElementById('orderType').value,
                 address: document.getElementById('address').value,
                 notes: document.getElementById('notes').value,
-                items: cart.map(i => i.name).join(", "),
-                total: total.toFixed(2)
+                total: total.toFixed(2),
+                items: cart.map(i => `${i.name} (${i.details})`).join("\n")
             };
 
-            // Guardar en Admin (Local)
-            const sales = JSON.parse(localStorage.getItem('street_sales') || '[]');
+            // Admin Logic
+            const sales = JSON.parse(localStorage.getItem('street_pro_sales') || '[]');
             sales.push(order);
-            localStorage.setItem('street_sales', JSON.stringify(sales));
+            localStorage.setItem('street_pro_sales', JSON.stringify(sales));
 
-            // Generar Ticket
+            // UI Feedback
             document.getElementById('orderForm').style.display = 'none';
             document.getElementById('ticket').style.display = 'block';
             
-            let ticketHtml = `ID: #${order.id}<br>CLIENTE: ${order.name}<br>TIPO: ${order.type.toUpperCase()}<br>-------------------<br>`;
-            cart.forEach(i => ticketHtml += `${i.name} - $${i.price}<br>`);
-            ticketHtml += `-------------------<br>TOTAL: $${order.total}`;
-            document.getElementById('ticketContent').innerHTML = ticketHtml;
+            const ticketText = `ORDEN #${order.id}\n${order.name}\n${order.type}\n-----------------\n${order.items}\n-----------------\nTOTAL: $${order.total}`;
+            document.getElementById('ticketContent').innerText = ticketText;
 
-            // Configurar WhatsApp
-            const miTel = "521234567890"; // CAMBIA ESTO
-            const msg = `🍔 *NUEVO PEDIDO STREET FOOD PRO* (#${order.id})\n\n👤 *Cliente:* ${order.name}\n📍 *Entrega:* ${order.type}\n🏠 *Dirección:* ${order.address || 'N/A'}\n📝 *Notas:* ${order.notes || 'Sin notas'}\n\n🛒 *PRODUCTOS:*\n${cart.map(i => "- "+i.name).join("\n")}\n\n💰 *TOTAL: $${order.total}*`;
-            document.getElementById('wsBtn').href = `https://wa.me/${miTel}?text=${encodeURIComponent(msg)}`;
+            // WhatsApp link
+            const tel = "1234567890"; // Reemplazar con número real
+            const msg = `🚀 *ORDEN STREET FOOD PRO #${order.id}*\n\n👤 *Cliente:* ${order.name}\n📍 *Modo:* ${order.type}\n🏠 *Dir:* ${order.address || 'N/A'}\n\n🛒 *PEDIDO:*\n${cart.map(i => "✅ "+i.name + " ("+i.details+")").join("\n")}\n\n💰 *TOTAL: $${order.total}*\n📝 *Notas:* ${order.notes || 'Ninguna'}`;
+            document.getElementById('wsBtn').href = `https://wa.me/${tel}?text=${encodeURIComponent(msg)}`;
             
             updateAdmin();
         };
 
         function updateAdmin() {
-            const sales = JSON.parse(localStorage.getItem('street_sales') || '[]');
+            const sales = JSON.parse(localStorage.getItem('street_pro_sales') || '[]');
             const list = document.getElementById('adminList');
             list.innerHTML = '';
-            sales.forEach(s => {
-                list.innerHTML += `<tr><td>#${s.id}</td><td>${s.name}</td><td>${s.items}</td><td>${s.type}</td><td>$${s.total}</td></tr>`;
+            sales.slice(-5).reverse().forEach(s => {
+                list.innerHTML += `<tr><td>#${s.id}</td><td>${s.name}</td><td>${s.type}</td><td>$${s.total}</td></tr>`;
             });
         }
 
         function clearSales() {
-            localStorage.removeItem('street_sales');
-            updateAdmin();
+            if(confirm("¿Borrar historial?")) {
+                localStorage.removeItem('street_pro_sales');
+                updateAdmin();
+            }
         }
 
         updateAdmin();
